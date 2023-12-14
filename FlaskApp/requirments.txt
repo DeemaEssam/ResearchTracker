@@ -1,0 +1,4 @@
+Flask==[version]
+beautifulsoup4==[version]
+requests==[version]
+XlsxWriter==[version]
