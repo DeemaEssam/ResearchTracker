@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/MagicEraser_231212_123200.png?raw=true">
+<!-- background-color: rgb(255, 240, 251); -->
+
+    <style>
+        body {
+            background-color: rgb(255, 255, 255);
+            color: rgb(133, 87, 133);
+        }
+
+        nav{
+            background-color: rgb(236, 268, 211);
+        }
+
+        header, footer {
+            background-color: rgb(236, 168, 211);
+            color: rgb(255, 240, 255);
+        }
+
+        .btn-primary {
+            background-color: rgb(147, 142, 214);
+            color: rgb(255, 255, 255);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: rgb(85, 79, 156);
+            color: rgb(255, 255, 255);
+        }
+        body {
+            background-size: cover;
+            backdrop-filter: blur(5px); /* Apply blur effect */
+            background-attachment: fixed; /* Optional: to make the background fixed during scroll */
+        }
+
+        /* Bootstrap Centering and Responsiveness */
+        .centered-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+        }
+        .help-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(96, 88, 88, 0.2);
+            padding: 12px;
+            border-radius: 5px;
+            z-index: 1;
+
+            bottom: 50%; /* Position the div above the button */
+            left: 50%; /* Start from the middle of the button */
+            transform: translateX(-50%); /* Center the div relative to the button */
+        }
+        /* Additional responsive adjustments */
+        @media (max-width: 768px) {
+            /* Adjustments for smaller screens */
+        }
+
+        .no-results-message {
+          text-align: center;
+          margin-top: 20px;
+          padding: 10px;
+          background-color: #ffcccc; /* Light red background */
+          color: #cc0000; /* Darker red text */
+          border: 1px solid #cc0000;
+          border-radius: 5px;
+      }
+
+    </style>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#search.html">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+          aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" Onclick="mon()">Monitor</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <a Onclick="logoutUser()">Logout</a>
+          </span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="">
+      <div class="">
+        <div id="helpDiv" class="help-content">
+          <p>Here you can find help about how to use this software:</p>
+          <ul>
+            <li>Search for instructors by name or select from a list.</li>
+            <li>View all research titles and dates associated with an instructor.</li>
+            <li>Export these results into an Excel sheet.</li>
+          </ul>
+        </div>
+        <center><img src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/MagicEraser_231212_123200.png?raw=true" width="40%"><a style="font-size: 13px;" href="#" onmouseover="showHelp()" onmouseout="hideHelp()">Help</a></center>
+
+
+          <form action="/" method="post"  class="d-grid gap-2">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search Using Author's Name" name="instructor_name">
+            <input type="text" id="searchInput" class="form-control" placeholder="Publish Date 'year' if required" name="PublishDate">
+            <button type="submit" class="btn btn-primary mt-3">Search</button>
+          </form><br>
+
+          <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+            <span onclick="setSearchQuery('Akila Sarirete')" class="badge d-flex align-items-center p-1 pe-2 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-pill" style="cursor:pointer;">
+                <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/akila.jpg?raw=true" alt="">Akila Sarirete
+            </span>
+            <span onclick="setSearchQuery('Tayeb Brahimi')" class="badge d-flex align-items-center p-1 pe-2 text-secondary-emphasis bg-secondary-subtle border border-secondary-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/tayeb.jpeg?raw=true" alt="">Tayeb Brahimi
+            </span>
+            <span onclick="setSearchQuery('Abdulhamit subasi')" class="badge d-flex align-items-center p-1 pe-2 text-secondary-emphasis bg-light-subtle border border-secondary-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/Abdulhamit%20subasi.jpeg?raw=true" alt="">Abdulhamit subasi
+            </span>
+            <span onclick="setSearchQuery('Zain Balfagih')" class="badge d-flex align-items-center p-1 pe-2 text-success-emphasis bg-success-subtle border border-success-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/zain.jpeg?raw=true" alt="">Zain Balfagih
+            </span>
+            <span onclick="setSearchQuery('Mohammed Mousa')" class="badge d-flex align-items-center p-1 pe-2 text-danger-emphasis bg-danger-subtle border border-danger-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/mousa.jpg?raw=true" alt="">Mohammed Mousa
+            </span>
+            <span onclick="setSearchQuery('Omar Kitannah')" class="badge d-flex align-items-center p-1 pe-2 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/omar.jpeg?raw=true" alt="">Omar Kitannah
+            </span>
+            <span onclick="setSearchQuery('Fidaa Abed')" class="badge d-flex align-items-center p-1 pe-2 text-info-emphasis bg-info-subtle border border-info-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/fidaa.jpeg?raw=true" alt="">Fidaa Abed
+            </span>
+            <span onclick="setSearchQuery('Passant Elkafrawy')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/psnt.png?raw=true" alt="">Passant Elkafrawy
+            </span>
+
+
+            <span onclick="setSearchQuery('Sohail Khan')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-success-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/sohail.png?raw=true" alt="">Sohail Khan
+            </span>
+
+            <span onclick="setSearchQuery('Narjisse Kabbaj')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-light-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/nrjs.png?raw=true" alt="">Narjisse Kabbaj
+            </span>
+            <span onclick="setSearchQuery('Mohammad Nauman')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-dark-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/naumann.png?raw=true" alt="">Mohammad Nauman
+            </span>
+
+
+            <span onclick="setSearchQuery('Enfel Barakat')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-danger-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/enfal.png?raw=true" alt="">Enfel Barakat
+            </span>
+            <span onclick="setSearchQuery('Aziza Ibrahim')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-warning-subtle border border-dark-subtle  rounded-pill" style="cursor:pointer;">
+                <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/aziza.jpg?raw=true" alt="">Aziza Ibrahim
+            </span>
+            <span onclick="setSearchQuery('Mohammed Abdulmajid')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-primary-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+                <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/majed.png?raw=true" alt="">Mohammed Abdulmajid
+            </span>
+            <span onclick="setSearchQuery('Amani Ghandour')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis  bg-light-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/amani.png?raw=true" alt="">Amani Ghandour
+            </span>
+            <span onclick="setSearchQuery('Arbaz Ahmed')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-dark-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/arbaz.png?raw=true" alt="">Arbaz Ahmed
+            </span>
+            <span onclick="setSearchQuery('Oumaima Geudhami')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-danger-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/oumaima.png?raw=true" alt="">Oumaima Geudhami
+            </span>
+            <span onclick="setSearchQuery('Nema Salem')" class="badge d-flex align-items-center p-1 pe-2 text-dark-emphasis bg-info-subtle border border-dark-subtle rounded-pill" style="cursor:pointer;">
+              <img class="rounded-circle me-1" width="24" height="24" src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/nema.png?raw=true" alt="">Nema Salem
+            </span>
+          </div>
+
+          <div>
+            {% if results %}
+              <table class="table table-striped mt-3">
+                <thead>
+                  <tr>
+                    <th>
+                      {% if excel_file %}
+                      <button width="20px"><a  href="{{ url_for('download_excel', instructor_name='instructor_name') }}" download> 
+                        <img src="https://github.com/Shumokh1/Research-Tracker/blob/main/pictures/excel.png?raw=true" width="20px">
+                      </button>
+                  {% endif %}
+
+                  </a>
+                    </th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for result in results %}
+                    <tr>
+                      <td>{{ loop.index }}</td>
+                      <td>{{ result.title }}</td>
+                      <td>{{ result.date }}</td>
+                      <td><a href="{{ result.link }}" target="_blank">View Paper</a></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+                  <p></p>
+              {% endif %}
+          </div>
+
+          <!-- Somewhere in your HTML body where you want to display the message -->
+          {% if message %}
+          <div class="no-results-message">
+            {{ message }}
+          </div>
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+      function showHelp() {
+        document.getElementById('helpDiv').style.display = 'block';
+      }
+
+      function hideHelp() {
+        document.getElementById('helpDiv').style.display = 'none';
+      }
+
+      function setSearchQuery(name) {
+          document.getElementById('searchInput').value = name;
+      }
+
+      function home() {
+        window.location.href = 'http://127.0.0.1:5000';
+        return false;
+      }
+
+      function mon() {
+        window.location.href = 'http://localhost/sw/FlaskApp/templates/table.php';
+        return false;
+      }
+
+      function logoutUser() {
+        window.location.href = 'http://localhost/sw/FlaskApp/templates/logout.php';
+      }
+
+
+        // Attach a click event handler to the button
+          document.getElementById("goToPHPButton").addEventListener("click", function () {
+            // Redirect to the PHP page
+            window.location.href = "http://localhost/sw/FlaskApp/templates/loginAdmin.php";
+          });
+    </script>
+</body>
+</html>
+
